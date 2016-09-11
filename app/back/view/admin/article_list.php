@@ -99,8 +99,8 @@
                         <small>文章</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="http://localhost/blog/admin/index.php"><i class="fa fa-dashboard"></i> 管理中心</a></li>
-                        <li><a href="http://localhost/blog/admin/article.php">文章</a></li>
+                        <li><a href="index.php?m=back&c=Manage&a=index"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+                        <li><a href="index.php?m=back&c=Manage&a=showArticle">文章</a></li>
                         <li class="active">文章列表</li>
                     </ol>
                 </section>
@@ -113,7 +113,7 @@
                             <div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title"></h3>
-                                    <a href="http://localhost/blog/admin/article.php?a=add" class="btn btn-default pull-right">添加文章</a>
+                                    <a href="index.php?m=back&c=Manage&a=addArticle" class="btn btn-default pull-right">添加文章</a>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -125,16 +125,90 @@
                                             <th>所属分类</th>
                                             <th style="width: 20%">操作</th>
                                         </tr>
-                                        <?php foreach ($articles as  $article) : ?>
+                                        <?php  foreach ($articles as  $article) : ?>
                                             <tr>
                                                 <td><?php echo $num++;?></td>
                                                 <td><?php echo $article["title"];?></td>
-                                                <td><?php echo $article["published_at"];?></td>
+                                                <td><?php echo $article["state"] ? "已发表" : "未发表";?></td>
                                                 <td><?php echo $article["create_time"];?></td>
                                                 <td><?php echo $article["type_name"];?></td>
                                                 <td>
-                                                    <a href="category_edit.html" class="btn btn-default" title="编辑"><span class="fa fa-edit"></span> 编辑</a>
-                                                    <a href="#" class="btn btn-default" title="删除" onclick="return confirm('是否删除？');"><span class="fa fa-trash-o"></span> 删除</a>
+                                                    <button class="btn btn-default" data-toggle="modal" data-target="#edit_<?php echo $num;?>">
+                                                        <span class="fa fa-edit"></span>编辑
+                                                    </button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="edit_<?php echo $num;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <form method="post" action="index.php?m=back&c=Manage&a=updateArticle" role="form">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                        <h4 class="modal-title" id="myModalLabel">编辑文章信息</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+
+                                                                        <input type="hidden" name="article_id" value="<?php echo $article["article_id"];?>">
+                                                                        <div class="form-group">
+                                                                            <label for="inputCategoryId">文章分类</label>
+                                                                            <select name="type_id" id="inputCategoryId" class="form-control">
+                                                                                <?php foreach ($type_names as  $type_name) : ?>
+                                                                                    <option <?php if ($article["type_id"] == $type_name["id"])echo "selected";?> value="<?php echo $type_name["id"];?>">
+                                                                                        <?php echo $type_name["type_name"];?>
+                                                                                    </option>
+                                                                                <?php endforeach; ?>
+                                                                                <!--                                                                    <option value="1">Node.js编程</option>-->
+                                                                                <!--                                                                    <option value="2">PHP学习</option>-->
+                                                                                <!--                                                                    <option value="3">JavaScript面向对象</option>-->
+                                                                                <!--                                                                    <option value="4">React Native移动开发</option>-->
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="inputCategoryId">文章状态</label>
+                                                                            <select name="state" id="inputCategoryId" class="form-control">
+
+                                                                                    <option <?php if ($article["state"] == 1)echo "selected";?> value="1">
+                                                                                        已发表
+                                                                                    </option>
+                                                                                    <option <?php if ($article["state"] == 0)echo "selected";?> value="0">
+                                                                                        未发表
+                                                                                    </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="inputSubject">文章标题</label>
+                                                                            <input value="<?php echo $article["title"];?>" type="text" name="title" placeholder="标题" id="inputSubject" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="inputSummary">文章摘要</label>
+                                                                            <textarea name="summary" placeholder="摘要" id="inputSummary" class="form-control"><?php echo $article["summary"];?></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="inputContent">文章内容</label>
+                                                                            <textarea name="content" class="form-control" id="inputContent" cols="30" placeholder="内容" rows="10"><?php echo $article["content"];?></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="tag_id">文章标签</label>
+                                                                            <select name="tag_id" id="inputCategoryId" class="form-control">
+                                                                                <?php foreach ($tags as  $tag) : ?>
+                                                                                    <option <?php if ($article["tag_id"] == $tag["id"]) echo "selected";?> value="<?php echo $tag["id"];?>">
+                                                                                        <?php echo $tag["tag_name"];?>
+                                                                                    </option>
+                                                                                <?php endforeach;?>
+                                                                            </select>
+                                                                        </div>
+
+
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">提交更改</button>
+                                                        </form>
+                                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                                                    <a href="index.php?m=back&c=Manage&a=deleteArticle&delete_id=<?php echo $article["article_id"];?>" class="btn btn-default" title="删除" onclick="return confirm('是否删除？');"><span class="fa fa-trash-o"></span> 删除</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

@@ -19,26 +19,9 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-        <script type="text/javascript">
-            //制作函数(ajax去获得分页信息)
-            function showpage(url){
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function(){
-                    if(xhr.readyState==4){
-                        document.getElementById('result').innerHTML = xhr.responseText;
-                    }
-                }
-                xhr.open('get',url);
-                xhr.send(null);
-            }
-            window.onload = function(){
-                showpage('index.php?m=back&c=Manage&a=getArticleType');
-            }
-        </script>
     </head>
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
-
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="left-side sidebar-offcanvas">
@@ -72,7 +55,7 @@
                                 <i class="fa fa-dashboard"></i> <span>控制台</span>
                             </a>
                         </li>
-                        <li class="treeview active">
+                        <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-th-large"></i> <span>分类</span>
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -92,7 +75,7 @@
                                 <li><a href="index.php?m=back&c=Manage&a=addArticle"><i class="fa fa-edit"></i>文章添加</a></li>
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview active">
                             <a href="#">
                                 <i class="fa fa-tag"></i> <span>标签</span>
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -106,47 +89,71 @@
                 </section>
                 <!-- /.sidebar -->
             </aside>
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        分类列表
-                        <small>分类</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="index.php?m=back&c=Manage&a=index"><i class="fa fa-dashboard"></i> 管理中心</a></li>
-                        <li class="category_list.html"><a href="index.php?m=back&c=Manage&a=showArticleType">分类</a></li>
-                        <li class="active">分类列表</li>
-                    </ol>
-                </section>
 
-                <!-- Main content -->
-                <section class="content">
+           <!-- Right side column. Contains the navbar and content of the page -->
+        <aside class="right-side">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    标签添加
+                    <small>标签</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="index.php?m=back&c=Manage&a=index"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+                    <li><a href="index.php?m=back&c=Manage&a=showTag">标签</a></li>
+                    <li class="active">标签添加</li>
+                </ol>
+            </section>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="box">
+            <!-- Main content -->
+            <section class="content">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <form action="index.php?m=back&c=Manage&a=addTagToSql" method="post">
                                 <div class="box-header">
                                     <h3 class="box-title"></h3>
-                                    <a href="index.php?m=back&c=Manage&a=addArticleType" class="btn btn-default pull-right">添加分类</a>
-                                </div><!-- /.box-header -->
+                                    <a href="index.php?m=back&c=Manage&a=showTag" class="btn btn-default pull-right">标签列表</a>
+                                </div>
+                                <!-- /.box-header -->
+
                                 <div class="box-body">
-                                    <div id="result"></div>
-                                </div><!-- /.box-body -->
-                            </div>
-
+                                    <div class="form-group">
+                                        <label for="inputSubject">标签名称</label>
+                                        <input type="text" name="tag_name" placeholder="标签名称" id="inputSubject" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="box-footer clearfix">
+                                    <button class="btn btn-primary" type="submit" name="state" value="1">添加</button>
+                                </div>
                         </div>
-                    </div>
-                </section><!-- /.content -->
+                                <!-- /.box-body -->
 
-                <section class="content-footer">
-                    <div class="text-center">
-                        © 2016 All Rights Reserved. Diamondwang
-                    </div>
-                </section><!-- /.content-footer -->
+                                <!-- /.box-footer -->
+                        </form>
 
-            </aside><!-- /.right-side -->
+
+                    </div>
+                        <!-- /.box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+            </section>
+            <!-- /.content -->
+
+            <section class="content-footer">
+                <div class="text-center">
+                    © 2016 All Rights Reserved. Diamondwang
+                </div>
+            </section>
+            <!-- /.content-footer -->
+
+        </aside>
+            
+            <!-- /.right-side -->
         </div><!-- ./wrapper -->
 
 

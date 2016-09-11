@@ -76,18 +76,18 @@
                             <div class="text-center">
                                 <ul class="pagination">
                                     <li>
-                                        <a href="index.php?m=home&c=Qt&a=index&page=<?php echo $page-1;?>" aria-label="Previous">
+                                        <a href="index.php?m=home&c=Qt&a=showSearchResult&page=<?php echo $page-1;?>" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
                                     <?php for ($i = 1;$i <= $totalPage;$i++) : ?>
                                     <li class="<?php if ($i == $page) echo "active";?>">
-                                        <a href="index.php?m=home&c=Qt&a=index&page=<?php echo $i;?>"><?php echo $i;?></a>
+                                        <a href="index.php?m=home&c=Qt&a=showSearchResult&page=<?php echo $i;?>"><?php echo $i;?></a>
                                     </li>
                                     <?php endfor; ?>
 
                                     <li>
-                                        <a href="index.php?m=home&c=Qt&a=index&page=<?php echo $page+1;?>" aria-label="Next">
+                                        <a href="index.php?m=home&c=Qt&a=showSearchResult&page=<?php echo $page+1;?>" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>

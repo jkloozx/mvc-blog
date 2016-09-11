@@ -99,8 +99,8 @@
                     <small>文章</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="http://localhost/blog/admin/index.php"><i class="fa fa-dashboard"></i> 管理中心</a></li>
-                    <li><a href="http://localhost/blog/admin/article.php">文章</a></li>
+                    <li><a href="index.php?m=back&c=Manage&a=index"><i class="fa fa-dashboard"></i> 管理中心</a></li>
+                    <li><a href="index.php?m=back&c=Manage&a=showArticle">文章</a></li>
                     <li class="active">文章添加</li>
                 </ol>
             </section>
@@ -114,7 +114,7 @@
                             <form action="index.php?m=back&c=Manage&a=addArticleToSql" method="post" enctype="multipart/form-data">
                                 <div class="box-header">
                                     <h3 class="box-title"></h3>
-                                    <a href="http://localhost/blog/admin/article.php?a=list" class="btn btn-default pull-right">文章列表</a>
+                                    <a href="index.php?m=back&c=Manage&a=showArticle" class="btn btn-default pull-right">文章列表</a>
                                 </div>
                                 <!-- /.box-header -->
 
@@ -150,21 +150,27 @@
                                         <textarea name="content" class="form-control" id="inputContent" cols="30" placeholder="内容" rows="10"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputTag">文章标签</label>
-                                        <input type="text" name="tag_id" placeholder="文章标签" id="inputSubject" class="form-control">
+                                        <label for="tag_id">文章标签</label>
+                                        <select name="tag_id" id="inputCategoryId" class="form-control">
+                                            <?php foreach ($tags as  $tag) : ?>
+                                            <option value="<?php echo $tag["id"];?>">
+                                                <?php echo $tag["tag_name"];?>
+                                            </option>
+                                        <?php endforeach;?>
+                                            </select>
                                     </div>
                                     </div>
-
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer clearfix">
-                                    <button class="btn btn-primary" type="submit" name="submit" value="publish">发布</button>
-                                    <button class="btn btn-info" type="submit" name="submit" value="save">仅保存</button>
+                                    <button class="btn btn-primary" type="submit" name="state" value="1">发布</button>
+                                    <button class="btn btn-info" type="submit" name="state" value="0">仅保存</button>
                                 </div>
                                 <!-- /.box-footer -->
-                            </form>
+                        </form>
 
-                        </div>
+
+                    </div>
                         <!-- /.box -->
                     </div>
                     <!-- /.col -->
@@ -186,7 +192,9 @@
             <!-- /.right-side -->
         </div><!-- ./wrapper -->
 
+        <script src='js/jquery.js'></script>
 
+        <script src="js/index.js"></script>
         <!-- jQuery 2.0.2 -->
         <script src="public/js/jquery.min.js"></script>
         <!-- Bootstrap -->

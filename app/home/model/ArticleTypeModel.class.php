@@ -22,6 +22,10 @@ class ArticleTypeModel extends Model{
         $sql = "select id,type_name from article_type";
         return $this->_dao->fetchAll($sql);
     }
+     public function getSomeArticleType($per) {
+        $sql = "select `id`,`type_name` from `article_type` ORDER BY `order` limit 0,$per";
+        return $this->_dao->fetchAll($sql);
+    }
      public function getArticleTypeName($type_id) {
         $sql = "select type_name from article_type where id = $type_id";
         return $this->_dao->fetchOne($sql);
@@ -35,7 +39,7 @@ class ArticleTypeModel extends Model{
         $escape_create_time = $this->_dao->escapeString($create_time);
         $escape_order = $this->_dao->escapeString($order);
         $sql = <<< EOP
-        insert into article_type
+        insert into article_type 
         (`type_name`,`create_time`,`order`)
         values
         ($escape_type_name,$escape_create_time,$escape_order);

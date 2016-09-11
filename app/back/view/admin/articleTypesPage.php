@@ -64,7 +64,7 @@ foreach ($articleTypes as $articleType) {
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<a href="#" class="btn btn-default" title="删除" onclick="return confirm('是否删除？');"><span class="fa fa-trash-o"></span> 删除</a>
+<a href="index.php?m=back&c=Manage&a=deleteArticleType&type_id=$type_id" class="btn btn-default" title="删除" onclick="return confirm('是否删除？');"><span class="fa fa-trash-o"></span> 删除</a>
             </td>
 EOP;
 
